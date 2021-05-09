@@ -24,6 +24,12 @@
 			alias: "tanggal",
             dataType: tableau.dataTypeEnum.date
         }, {
+            id: "laki-laki",
+            dataType: tableau.dataTypeEnum.int
+        }, {
+            id: "perempuan",
+            dataType: tableau.dataTypeEnum.int
+        }, {
             id: "0-5",
             dataType: tableau.dataTypeEnum.int
         }, {
@@ -73,29 +79,31 @@
     // Download the data
     myConnector.getData = function(table, doneCallback) {
         $.getJSON("https://apicovid19indonesia-v2.vercel.app/api/indonesia/provinsi/more", function(resp) {
-            var feat = resp,
+            var feat = resp.list_data,
                 tableData = [];
 
             // Iterate over the JSON object
             for (var i = 0, len = feat.length; i < len; i++) {
                 tableData.push({
-                    "provinsi": feat[i].provinsi,
-					"kasus": feat[i].kasus,
-					"dirawat": feat[i].dirawat,
-					"sembuh": feat[i].sembuh,
-					"meninggal": feat[i].meninggal,
-					"last_date": feat[i].last_date,
-					"0-5": feat[i].kelompok_umur[0]["0-5"],
-					"6-18": feat[i].kelompok_umur[1]["6-18"],
-					"19-30": feat[i].kelompok_umur[2]["19-30"],
-					"31-45": feat[i].kelompok_umur[3]["31-45"],
-					"46-59": feat[i].kelompok_umur[4]["46-59"],
-					"≥60": feat[i].kelompok_umur[5]["≥ 60"],
-					"penambahan_positif": feat[i].penambahan.positif,
-					"penambahan_sembuh": feat[i].penambahan.sembuh,
-					"penambahan_meninggal": feat[i].penambahan.meninggal,
-					"lon": feat[i].lokasi.lon,
-					"lat": feat[i].lokasi.lat
+                    "provinsi": list_data.feat[i].key,
+					"kasus": list_data.feat[i].jumlah_kasus,
+					"dirawat": list_data.feat[i].jumlah_dirawat,
+					"sembuh": list_data.feat[i].jumlah_sembuh,
+					"meninggal": list_data.feat[i].jumlah_meninggal,
+					"last_date": last_date,
+					"laki-laki": list_data.feat[i].jenis_kelamin[0].doc_count,
+					"perempuan": list_data.feat[i].jenis_kelamin[0].doc_count,
+					"0-5": list_data.feat[i].kelompok_umur[0].doc_count,
+					"6-18": list_data.feat[i].kelompok_umur[1].doc_count,
+					"19-30": list_data.feat[i].kelompok_umur[2].doc_count,
+					"31-45": list_data.feat[i].kelompok_umur[3].doc_count,
+					"46-59": feat[i].kelompok_umur[4].doc_count,
+					"≥60": list_data.feat[i].kelompok_umur[5].doc_count,
+					"penambahan_positif": list_data.feat[i].penambahan.positif,
+					"penambahan_sembuh": list_data.feat[i].penambahan.sembuh,
+					"penambahan_meninggal": list_data.feat[i].penambahan.meninggal,
+					"lon": list_data.feat[i].lokasi.lon,
+					"lat": list_data.feat[i].lokasi.lat
                 });
 			}
             
