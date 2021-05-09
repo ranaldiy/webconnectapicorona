@@ -24,12 +24,6 @@
 			alias: "tanggal",
             dataType: tableau.dataTypeEnum.date
         }, {
-            id: "laki-laki",
-            dataType: tableau.dataTypeEnum.int
-        }, {
-            id: "perempuan",
-            dataType: tableau.dataTypeEnum.int
-        }, {
             id: "0-5",
             dataType: tableau.dataTypeEnum.int
         }, {
@@ -91,14 +85,12 @@
 					"sembuh": feat[i].sembuh,
 					"meninggal": feat[i].meninggal,
 					"last_date": feat[i].last_date,
-					"laki-laki": feat[i].jenis_kelamin['laki-laki'],
-					"perempuan": feat[i].jenis_kelamin['perempuan'],
-					"0-5": feat[i].kelompok_umur[0]['0-5'],
-					"6-18": feat[i].kelompok_umur[1]['6-18'],
-					"19-30": feat[i].kelompok_umur[2]['19-30'],
-					"31-45": feat[i].kelompok_umur[3]['31-45'],
-					"46-59": feat[i].kelompok_umur[4]['46-59'],
-					"≥60": feat[i].kelompok_umur[5]['≥ 60'],
+					"0-5": feat[i].kelompok_umur[0]["0-5"],
+					"6-18": feat[i].kelompok_umur[1]["6-18"],
+					"19-30": feat[i].kelompok_umur[2]["19-30"],
+					"31-45": feat[i].kelompok_umur[3]["31-45"],
+					"46-59": feat[i].kelompok_umur[4]["46-59"],
+					"≥60": feat[i].kelompok_umur[5]["≥ 60"],
 					"penambahan_positif": feat[i].penambahan.positif,
 					"penambahan_sembuh": feat[i].penambahan.sembuh,
 					"penambahan_meninggal": feat[i].penambahan.meninggal,
