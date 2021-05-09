@@ -7,64 +7,6 @@
         var cols = [ {
             id: "provinsi",
             dataType: tableau.dataTypeEnum.string
-        }, {
-            id: "kasus",
-            dataType: tableau.dataTypeEnum.int
-        }, {
-            id: "dirawat",
-            dataType: tableau.dataTypeEnum.int
-        }, {
-            id: "sembuh",
-            dataType: tableau.dataTypeEnum.int
-        }, {
-            id: "meninggal",
-            dataType: tableau.dataTypeEnum.int
-        }, {
-            id: "last_date",
-			alias: "tanggal",
-            dataType: tableau.dataTypeEnum.date
-        }, {
-            id: "laki-laki",
-            dataType: tableau.dataTypeEnum.int
-        }, {
-            id: "perempuan",
-            dataType: tableau.dataTypeEnum.int
-        }, {
-            id: "0-5",
-            dataType: tableau.dataTypeEnum.int
-        }, {
-            id: "6-18",
-            dataType: tableau.dataTypeEnum.int
-        }, {
-            id: "19-30",
-            dataType: tableau.dataTypeEnum.int
-        }, {
-            id: "31-45",
-            dataType: tableau.dataTypeEnum.int
-        }, {
-            id: "46-59",
-            dataType: tableau.dataTypeEnum.int
-        }, {
-            id: "≥60",
-            dataType: tableau.dataTypeEnum.int
-        }, {
-            id: "penambahan_positif",
-			alias: "penambahan positif",
-            dataType: tableau.dataTypeEnum.int
-        }, {
-            id: "penambahan_sembuh",
-			alias: "penambahan sembuh",
-            dataType: tableau.dataTypeEnum.int
-        }, {
-            id: "penambahan_meninggal",
-			alias: "penambahan meninggal",
-            dataType: tableau.dataTypeEnum.int
-        }, {
-            id: "lon",
-            dataType: tableau.dataTypeEnum.float
-        }, {
-            id: "lat",
-            dataType: tableau.dataTypeEnum.float
         }];
 
         var tableSchema = {
@@ -78,32 +20,32 @@
 
     // Download the data
     myConnector.getData = function(table, doneCallback) {
-        $.getJSON("https://apicovid19indonesia-v2.vercel.app/api/indonesia/provinsi/more", function(resp) {
+        $.getJSON("https://data.covid19.go.id/public/api/prov.json", function(resp) {
             var feat = resp.list_data,
                 tableData = [];
 
             // Iterate over the JSON object
             for (var i = 0, len = feat.length; i < len; i++) {
                 tableData.push({
-                    "provinsi": list_data.feat[i].key,
-					"kasus": list_data.feat[i].jumlah_kasus,
-					"dirawat": list_data.feat[i].jumlah_dirawat,
-					"sembuh": list_data.feat[i].jumlah_sembuh,
-					"meninggal": list_data.feat[i].jumlah_meninggal,
+                    "provinsi": feat[i].key,
+					"kasus": feat[i].jumlah_kasus,
+					"dirawat": feat[i].jumlah_dirawat,
+					"sembuh": feat[i].jumlah_sembuh,
+					"meninggal": feat[i].jumlah_meninggal,
 					"last_date": last_date,
-					"laki-laki": list_data.feat[i].jenis_kelamin[0].doc_count,
-					"perempuan": list_data.feat[i].jenis_kelamin[0].doc_count,
-					"0-5": list_data.feat[i].kelompok_umur[0].doc_count,
-					"6-18": list_data.feat[i].kelompok_umur[1].doc_count,
-					"19-30": list_data.feat[i].kelompok_umur[2].doc_count,
-					"31-45": list_data.feat[i].kelompok_umur[3].doc_count,
-					"46-59": feat[i].kelompok_umur[4].doc_count,
-					"≥60": list_data.feat[i].kelompok_umur[5].doc_count,
-					"penambahan_positif": list_data.feat[i].penambahan.positif,
-					"penambahan_sembuh": list_data.feat[i].penambahan.sembuh,
-					"penambahan_meninggal": list_data.feat[i].penambahan.meninggal,
-					"lon": list_data.feat[i].lokasi.lon,
-					"lat": list_data.feat[i].lokasi.lat
+					"laki_laki": feat[i].jenis_kelamin[0].doc_count,
+					"perempuan": feat[i].jenis_kelamin[1].doc_count,
+					"0_5": feat[i].kelompok_umur[0].doc_count,
+					"6_18": feat[i].kelompok_umur[1].doc_count,
+					"19_30": feat[i].kelompok_umur[2].doc_count,
+					"31_45": feat[i].kelompok_umur[3].doc_count,
+					"46_59": feat[i].kelompok_umur[4].doc_count,
+					"≥60": feat[i].kelompok_umur[5].doc_count,
+					"penambahan_positif": feat[i].penambahan.positif,
+					"penambahan_sembuh": feat[i].penambahan.sembuh,
+					"penambahan_meninggal": feat[i].penambahan.meninggal,
+					"lon": feat[i].lokasi.lon,
+					"lat": feat[i].lokasi.lat
                 });
 			}
             
