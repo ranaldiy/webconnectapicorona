@@ -52,23 +52,23 @@
 
     // Download the data
     myConnector.getData = function(table, doneCallback) {
-        $.getJSON("https://data.covid19.go.id/public/api/update.json", function(resp) {
-            var feat = resp.update.harian,
+        $.getJSON("https://apicovid19indonesia-v2.vercel.app/api/indonesia/harian", function(resp) {
+            var feat = resp,
                 tableData = [];
 
             // Iterate over the JSON object
             for (var i = 0, len = feat.length; i < len; i++) {
                 tableData.push({
-                    "lastUpdate": feat[i].key,
-                    "positif": feat[i].jumlah_positif,
-                    "dirawat": feat[i].jumlah_dirawat,
-                    "sembuh": feat[i].jumlah_sembuh,
-                    "meninggal": feat[i].jumlah_meninggal,
-                    "tanggal": feat[i].key_as_string,                    
-					"positif_kumulatif": feat[i].value.jumlah_positif_kum,
-                    "dirawat_kumulatif": feat[i].value.jumlah_dirawat_kum,
-                    "sembuh_kumulatif": feat[i].value.jumlah_sembuh_kum,
-                    "meninggal_kumulatif": feat[i].value.jumlah_meninggal_kum,
+                    "lastUpdate": feat[i].lastUpdate,
+                    "positif": feat[i].positif,
+                    "dirawat": feat[i].dirawat,
+                    "sembuh": feat[i].sembuh,
+                    "meninggal": feat[i].meninggal,
+                    "tanggal": feat[i].tanggal,
+					"positif_kumulatif": feat[i].positif_kumulatif,
+                    "dirawat_kumulatif": feat[i].dirawat_kumulatif,
+                    "sembuh_kumulatif": feat[i].sembuh_kumulatif,
+                    "meninggal_kumulatif": feat[i].meninggal_kumulatif,
                 });
             }
 

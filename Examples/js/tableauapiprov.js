@@ -7,6 +7,64 @@
         var cols = [ {
             id: "provinsi",
             dataType: tableau.dataTypeEnum.string
+        }, {
+            id: "kasus",
+            dataType: tableau.dataTypeEnum.int
+        }, {
+            id: "dirawat",
+            dataType: tableau.dataTypeEnum.int
+        }, {
+            id: "sembuh",
+            dataType: tableau.dataTypeEnum.int
+        }, {
+            id: "meninggal",
+            dataType: tableau.dataTypeEnum.int
+        }, {
+            id: "last_date",
+			alias: "tanggal",
+            dataType: tableau.dataTypeEnum.date
+        }, {
+            id: "laki_laki",
+            dataType: tableau.dataTypeEnum.int
+        }, {
+            id: "perempuan",
+            dataType: tableau.dataTypeEnum.int
+        }, {
+            id: "0_5",
+            dataType: tableau.dataTypeEnum.int
+        }, {
+            id: "6_18",
+            dataType: tableau.dataTypeEnum.int
+        }, {
+            id: "19_30",
+            dataType: tableau.dataTypeEnum.int
+        }, {
+            id: "31_45",
+            dataType: tableau.dataTypeEnum.int
+        }, {
+            id: "46_59",
+            dataType: tableau.dataTypeEnum.int
+        }, {
+            id: "lebih_60",
+            dataType: tableau.dataTypeEnum.int
+        }, {
+            id: "penambahan_positif",
+			alias: "penambahan positif",
+            dataType: tableau.dataTypeEnum.int
+        }, {
+            id: "penambahan_sembuh",
+			alias: "penambahan sembuh",
+            dataType: tableau.dataTypeEnum.int
+        }, {
+            id: "penambahan_meninggal",
+			alias: "penambahan meninggal",
+            dataType: tableau.dataTypeEnum.int
+        }, {
+            id: "lon",
+            dataType: tableau.dataTypeEnum.float
+        }, {
+            id: "lat",
+            dataType: tableau.dataTypeEnum.float
         }];
 
         var tableSchema = {
@@ -20,27 +78,27 @@
 
     // Download the data
     myConnector.getData = function(table, doneCallback) {
-        $.getJSON("https://data.covid19.go.id/public/api/prov.json", function(resp) {
-            var feat = resp.list_data,
+        $.getJSON("https://apicovid19indonesia-v2.vercel.app/api/indonesia/provinsi/more", function(resp) {
+            var feat = resp,
                 tableData = [];
 
             // Iterate over the JSON object
             for (var i = 0, len = feat.length; i < len; i++) {
                 tableData.push({
-                    "provinsi": feat[i].key,
-					"kasus": feat[i].jumlah_kasus,
-					"dirawat": feat[i].jumlah_dirawat,
-					"sembuh": feat[i].jumlah_sembuh,
-					"meninggal": feat[i].jumlah_meninggal,
-					"last_date": last_date,
-					"laki_laki": feat[i].jenis_kelamin[0].doc_count,
-					"perempuan": feat[i].jenis_kelamin[1].doc_count,
-					"0_5": feat[i].kelompok_umur[0].doc_count,
-					"6_18": feat[i].kelompok_umur[1].doc_count,
-					"19_30": feat[i].kelompok_umur[2].doc_count,
-					"31_45": feat[i].kelompok_umur[3].doc_count,
-					"46_59": feat[i].kelompok_umur[4].doc_count,
-					"≥60": feat[i].kelompok_umur[5].doc_count,
+                    "provinsi": feat[i].provinsi,
+					"kasus": feat[i].kasus,
+					"dirawat": feat[i].dirawat,
+					"sembuh": feat[i].sembuh,
+					"meninggal": feat[i].meninggal,
+					"last_date": feat[i].last_date,
+					"laki_laki": feat[i].jenis_kelamin["laki-laki"],
+					"perempuan": feat[i].jenis_kelamin["perempuan"],
+					"0_5": feat[i].kelompok_umur[0]["0-5"],
+					"6_18": feat[i].kelompok_umur[1]["6-18"],
+					"19_30": feat[i].kelompok_umur[2]["19-30"],
+					"31_45": feat[i].kelompok_umur[3]["31-45"],
+					"46_59": feat[i].kelompok_umur[4]["46-59"],
+					"lebih_60": feat[i].kelompok_umur[5]["≥ 60"],
 					"penambahan_positif": feat[i].penambahan.positif,
 					"penambahan_sembuh": feat[i].penambahan.sembuh,
 					"penambahan_meninggal": feat[i].penambahan.meninggal,
